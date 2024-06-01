@@ -1,0 +1,9 @@
+aira:
+  gaiah:
+    run: true
+    develop:  
+      config_path: .gaiah/config.dev.yml
+  harmon_ai:
+    run: true
+    config_path: .harmon_ai/config.yml
+    instructions_prompt: .aira/instructions.md
