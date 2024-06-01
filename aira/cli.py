@@ -2,8 +2,14 @@ import argparse
 from art import tprint
 from loguru import logger
 from gaiah.gaiah import Gaiah
-from gaiah.cli import parse_arguments
+from gaiah.cli import load_config
+
+from harmon_ai.harmon_ai import HarmonAI
+
 import sys
+import os
+import shutil
+import yaml
 
 logger.configure(
     handlers=[
@@ -15,36 +21,65 @@ logger.configure(
     ]
 )
 
+def parse_arguments():
+    """
+    コマンドライン引数を解析する
+    """
+    parser = argparse.ArgumentParser(description='Gaiah - シンプルなGitリポジトリ管理ツール')
+    
+    parser.add_argument('--config', default='.aira/config.yml', help='設定ファイルのパス')
 
-def parse():
-    parser = argparse.ArgumentParser(description="GitHubリポジトリ用のREADMEテンプレートとバッジを生成します。")
-    parser.add_argument("--repo_name", help="GitHubリポジトリの名前", default="Repo Name")
-    parser.add_argument("--owner_name", help="リポジトリオーナーのGitHubユーザー名", default="Owner name")
-    parser.add_argument("--package_name", help="パッケージの名前", default="Package Name")
-
-    return parser
-
-def parse_arguments3():
-    # parser = argparse.ArgumentParser(description="Description for all arguments", add_help=True)
-    # パッケージ3の引数パーサー
-    parser3 = argparse.ArgumentParser(description='Package 3 description')
-    parser3.add_argument('--arg5', type=str, choices=['option1', 'option2'], help='Argument 5 help')
-    parser3.add_argument('--arg6', type=int, nargs='+', help='Argument 6 help')
-    return parser3
+    return parser.parse_args()
 
 def main():
-    args = parse_arguments3()
-    print("Package 1 argument help:")
-    args.print_help()
-    
-    args = parse()
-    print("Package 2 argument help:")
-    args.print_help()
-    # args2 = parse_arguments2()
     tprint("!  Welcome  to  AIRA  !")
-    raise
-    gaiah = Gaiah(args)
-    gaiah.run()
 
+    # .aira/config.ymlが存在するかチェック
+    args = parse_arguments()
+    aira_config_path = args.config
+    if not os.path.exists(aira_config_path):
+        # aira\template\config.ymlをコピー
+        template_config_path = "aira/template/config.yml"
+        os.makedirs(os.path.dirname(aira_config_path), exist_ok=True)
+        shutil.copy(template_config_path, aira_config_path)
+        logger.info(f"{aira_config_path}が見つかりませんでした。{template_config_path}からコピーしました。")
+    else:
+        logger.info(f"{aira_config_path}が見つかりました。")
+
+    # .aira/config.ymlからconfig_pathを取得
+    with open(aira_config_path, "r") as f:
+        aira_config = yaml.safe_load(f)
+
+
+    # ------------------
+    # make abst
+    #
+    
+    # ------------------
+    # gaiah
+    #
+    if(aira_config["aira"]["gaiah"]["run"]):
+        
+        gaiah_config_path = aira_config["aira"]["gaiah"]["develop"]["config_path"]
+        gaiah_config = load_config(gaiah_config_path)
+        logger.info(f"Gaiah config path : {gaiah_config_path}")
+        if not os.path.exists(os.path.join(gaiah_config["gaiah"]["local"]["repo_dir"], ".git")):
+            logger.info("初期化を行います...")
+        else:
+            logger.info(".gitが発見されました...")
+
+        tprint("-- Gaiah --")
+        logger.info("Gaiahの処理を開始します...")
+        gaiah = Gaiah(gaiah_config)
+        gaiah.run()
+    
+    # ------------------
+    # Harmon AI
+    #
+    if(aira_config["aira"]["harmon_ai"]["run"]):
+        logger.info("Harmon AIの処理を開始します...")
+        harmon_ai = HarmonAI()
+        harmon_ai.run()
+    
 if __name__ == "__main__":
     main()
