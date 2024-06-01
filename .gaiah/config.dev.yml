@@ -1,0 +1,12 @@
+gaiah:
+  repo:
+    create_repo: false
+
+  local:
+    init_repo: false
+    repo_dir: "C:/Prj/AIRA"
+
+  commit:
+    process_commits: true
+    commit_msg_path: ".Gaiah.md"
+    branch_name: null
