@@ -1,0 +1,16 @@
+gaiah:
+  # repo:
+  #   create_repo: false
+  #   repo_name: "AIRA-Sample00"
+  #   description: ""
+  #   private: false
+
+  local:
+    init_repo: false
+    repo_dir: "C:/Prj/AIRA-Sample/AIRA-Sample00"
+    no_initial_commit: false
+
+  commit:
+    process_commits: true
+    commit_msg_path: ".aira/aira.Gaiah.md"
+    branch_name: null
