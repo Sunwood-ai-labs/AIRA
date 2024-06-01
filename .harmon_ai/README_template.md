@@ -32,6 +32,18 @@
 </p>
 
 >[!IMPORTANT]
->
+>このリポジトリのリリースノートやREADME、コミットメッセージの9割近くは[claude.ai](https://claude.ai/)や[ChatGPT4](https://chatgpt.com/)を活用した[AIRA](https://github.com/Sunwood-ai-labs/AIRA), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), [Gaiah](https://github.com/Sunwood-ai-labs/Gaiah), [HarmonAI_II](https://github.com/Sunwood-ai-labs/HarmonAI_II)で生成しています。
 
+## 🌟 Introduction
 
+## 🎥 Demo
+
+## 🚀 Getting Started
+
+## 📝 Updates
+
+## 🤝 Contributing
+
+## 📄 License
+
+## 🙏 Acknowledgements
