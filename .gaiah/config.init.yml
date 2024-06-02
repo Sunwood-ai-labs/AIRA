@@ -11,6 +11,6 @@ gaiah:
     no_initial_commit: false
 
   commit:
-    process_commits: false
+    process_commits: true
     commit_msg_path: "C:/Prj/AIRA-Sample/.Gaiah.md"
     branch_name: null
