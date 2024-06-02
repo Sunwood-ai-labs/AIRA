@@ -1,9 +1,9 @@
 gaiah:
-  # repo:
-  #   create_repo: false
-  #   repo_name: "AIRA-Sample00"
-  #   description: ""
-  #   private: false
+  repo:
+    create_repo: false
+    repo_name: "AIRA-Sample00"
+    description: ""
+    private: false
 
   local:
     init_repo: false
