@@ -19,6 +19,9 @@ harmon_ai:
     cicd_main_path: "publish-to-pypi.yml"
     github_cicd_dir: ".github/workflows"
   
+  llm_product:
+    sections_content_file: "sections_template_llm.md"
+  
   development:
     output_dir: "C:/Prj/AIRA-Sample/AIRA-Sample01/.harmon_ai"
 
