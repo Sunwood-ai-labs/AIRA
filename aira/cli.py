@@ -59,7 +59,7 @@ def main():
     # gaiah init
     #
     if(aira_config["aira"]["gaiah"]["run"]):
-        
+        logger.info("gaiah init section ....")
         gaiah_config_path = aira_config["aira"]["gaiah"]["develop"]["config_path"]
         gaiah_config = load_config(gaiah_config_path)
         logger.info(f"Gaiah config path : {gaiah_config_path}")
@@ -84,8 +84,9 @@ def main():
         harmon_ai.run()
 
     # ------------------
-    # gaiah init
+    # gaiah run
     #
+    logger.info("gaiah run section ....")
     gaiah_config_path = aira_config["aira"]["gaiah"]["develop"]["config_path"]
     gaiah_config = load_config(gaiah_config_path)
     gaiah = Gaiah(gaiah_config)
