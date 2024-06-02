@@ -56,7 +56,7 @@ def main():
     #
     
     # ------------------
-    # gaiah
+    # gaiah init
     #
     if(aira_config["aira"]["gaiah"]["run"]):
         
@@ -65,6 +65,8 @@ def main():
         logger.info(f"Gaiah config path : {gaiah_config_path}")
         if not os.path.exists(os.path.join(gaiah_config["gaiah"]["local"]["repo_dir"], ".git")):
             logger.info("初期化を行います...")
+            gaiah_config_path = aira_config["aira"]["gaiah"]["init"]["config_path"]
+            gaiah_config = load_config(gaiah_config_path)
         else:
             logger.info(".gitが発見されました...")
 
@@ -80,6 +82,14 @@ def main():
         logger.info("Harmon AIの処理を開始します...")
         harmon_ai = HarmonAI()
         harmon_ai.run()
+
+    # ------------------
+    # gaiah init
+    #
+    gaiah_config_path = aira_config["aira"]["gaiah"]["develop"]["config_path"]
+    gaiah_config = load_config(gaiah_config_path)
+    gaiah = Gaiah(gaiah_config)
+    gaiah.run()
     
 if __name__ == "__main__":
     main()
