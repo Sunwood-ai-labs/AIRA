@@ -36,6 +36,8 @@ setup(
             'art',
             'loguru',
             'tqdm',
+            'harmon_ai',
+            'gaiah_toolkit',
         ],
     entry_points={
         'console_scripts': [
