@@ -45,7 +45,7 @@ class Aira:
         if self.aira_config["aira"]["harmon_ai"]["run"]:
             logger.info("HarmonAI section starting...")
                        
-            output_dir = r"C:/Prj/AIRA-Sample/AIRA-Sample01/.harmon_ai"
+            output_dir = self.aira_config["aira"]["harmon_ai"]["development"]["output_dir"]
             # output_dir = self.aira_config.get("repository_summary_output_dir", ".aira")
             
             # リポジトリ概要を生成
@@ -67,7 +67,6 @@ class Aira:
             readme = self.generate_readme(
                 repository_summary, readme_prompt_template_path
             )
-            
             
             output_file = "sections_template_llm.md"
             self.repo_manager.save_repository_summary(readme, output_dir, output_file)
