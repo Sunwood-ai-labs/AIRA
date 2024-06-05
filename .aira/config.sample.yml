@@ -6,10 +6,10 @@ aira:
       description: ""
       private: false
     local:
-      repo_dir: "C:/Prj/AIRA"
+      repo_dir: "C:/Prj/AIRA-Sample/AIRA-Sample01"
       no_initial_commit: false
     commit:
-      commit_msg_path: ".Gaiah.md"
+      commit_msg_path: ".aira/aira.Gaiah.md"
       branch_name: null
 
     dev:  # 開発時の設定 (必要に応じて上書き)
@@ -60,10 +60,10 @@ aira:
       sections_content_file: "sections_template_llm.md"
 
     development:
-      output_dir: "C:/Prj/AIRA/.harmon_ai"
+      output_dir: "C:/Prj/AIRA-Sample/AIRA-Sample01/.harmon_ai"
 
     main:
-      main_dir: "C:/Prj/AIRA/"
+      main_dir: "C:/Prj/AIRA-Sample/AIRA-Sample01/"
       replace_readme: true
 
     instructions_prompt: .aira/instructions.md
