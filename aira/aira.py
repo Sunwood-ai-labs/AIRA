@@ -39,15 +39,13 @@ class Aira:
                 logger.info("Develop repository...")
                 self.gaiah_config["gaiah"] = self.merge_configs(self.gaiah_config["gaiah"], self.gaiah_config["gaiah"]["dev"])
             
-
-
         logger.info("Harmon AI run : {}".format(self.aira_config["aira"]["harmon_ai"]["run"]))
         if self.aira_config["aira"]["harmon_ai"]["run"]:
             logger.info("HarmonAI section starting...")
                        
             output_dir = self.aira_config["aira"]["harmon_ai"]["development"]["output_dir"]
             # output_dir = self.aira_config.get("repository_summary_output_dir", ".aira")
-            
+            logger.debug(f"output_dir is [{output_dir}]")
             # リポジトリ概要を生成
             instructions_prompt_path = self.aira_config["aira"]["harmon_ai"]["instructions_prompt"]
             repository_summary = self.repo_manager.generate_repository_summary(
