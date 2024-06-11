@@ -105,6 +105,15 @@ AIRAは、オープンソースプロジェクトです。
 
 コントリビューションガイドラインについては、[CONTRIBUTING.md](https://github.com/Sunwood-ai-labs/AIRA/blob/main/CONTRIBUTING.md)を参照してください。
 
+## 開発者用
+
+### SourceSageリリースノートを作成コマンド
+
+```shell
+sourcesage --mode DocuMind --docuMind-model "gemini/gemini-1.5-pro-latest" --docuMind-db ".SourceSageAssets\DOCUMIND\Repository_summary.md" --docuMind-release-report ".SourceSageAssets\RELEASE_REPORT\Report_v0.2.2.md"  --docuMind-changelog ".SourceSageAssets\Changelog\CHANGELOG_release_0.2.2.md"  --docuMind-output ".SourceSageAssets/DOCUMIND/RELEASE_NOTES_v0.2.2.md"  --docuMind-prompt-output ".SourceSageAssets/DOCUMIND/_PROMPT_v0.2.2.md"  --repo-name "SourceSage" --repo-version "v0.2.2"
+```
+
+
 ## 📄 ライセンス
 
 AIRAは、[MITライセンス](https://opensource.org/licenses/MIT)の下で公開されています。   
