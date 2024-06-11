@@ -38,6 +38,8 @@ setup(
             'tqdm',
             'harmon_ai',
             'gaiah_toolkit',
+            'litellm',
+            'google-generativeai',
         ],
     entry_points={
         'console_scripts': [
