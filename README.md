@@ -66,10 +66,13 @@ AIRAは、以下の手順でインストールすることができます。
 
 ### リポジトリの作成
 
+
+`.aira\config.sample.yml`に必要な項目を記載。
+
 以下のコマンドを実行すると、新しいリポジトリを作成することができます。
 
 ```bash
-aira --mode make
+aira --mode=make --config=.aira\config.sample.yml
 ```
 
 このコマンドを実行すると、以下の処理が行われます。
