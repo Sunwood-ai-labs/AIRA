@@ -14,6 +14,11 @@ from dotenv import load_dotenv
 
 load_dotenv(verbose=True)
 
+# 環境変数をos.environに代入
+os.environ['GEMINI_API_KEY'] = os.getenv('GEMINI_API_KEY')
+os.environ['GITHUB_ACCESS_TOKEN'] = os.getenv('GITHUB_ACCESS_TOKEN')
+# os.environ['GOOGLE_API_KEY'] = os.getenv('GOOGLE_API_KEY')
+
 class Aira:
     def __init__(self, config_path=".aira/config.yml"):
         logger.debug(f"aira config_path : {config_path}")
