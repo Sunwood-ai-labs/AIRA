@@ -2,9 +2,9 @@ aira:
   gaiah:  # 共通設定
     run: true
     repo:
-      repo_name: "AIRA-Sample01"
+      repo_name: "AIRA-Sample03"
       description: ""
-      private: false
+      private: True
     local:
       repo_dir: "C:/Prj/AIRA"
       no_initial_commit: false
