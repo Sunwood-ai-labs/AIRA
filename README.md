@@ -66,10 +66,13 @@ AIRAは、以下の手順でインストールすることができます。
 
 ### リポジトリの作成
 
+
+`.aira\config.sample.yml`に必要な項目を記載。
+
 以下のコマンドを実行すると、新しいリポジトリを作成することができます。
 
 ```bash
-aira --mode make
+aira --mode=make --config=.aira\config.sample.yml
 ```
 
 このコマンドを実行すると、以下の処理が行われます。
@@ -104,6 +107,15 @@ AIRAは、オープンソースプロジェクトです。
 また、プルリクエストも大歓迎です。 
 
 コントリビューションガイドラインについては、[CONTRIBUTING.md](https://github.com/Sunwood-ai-labs/AIRA/blob/main/CONTRIBUTING.md)を参照してください。
+
+## 開発者用
+
+### SourceSageリリースノートを作成コマンド
+
+```shell
+sourcesage --mode DocuMind --docuMind-model "gemini/gemini-1.5-pro-latest" --docuMind-db ".SourceSageAssets\DOCUMIND\Repository_summary.md" --docuMind-release-report ".SourceSageAssets\RELEASE_REPORT\Report_v0.2.2.md"  --docuMind-changelog ".SourceSageAssets\Changelog\CHANGELOG_release_0.2.2.md"  --docuMind-output ".SourceSageAssets/DOCUMIND/RELEASE_NOTES_v0.2.2.md"  --docuMind-prompt-output ".SourceSageAssets/DOCUMIND/_PROMPT_v0.2.2.md"  --repo-name "SourceSage" --repo-version "v0.2.2"
+```
+
 
 ## 📄 ライセンス
 

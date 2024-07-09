@@ -1,0 +1,3 @@
+output: ./sourcesage_output  # SourceSageの出力ディレクトリ
+repo: ./  # リポジトリへのパス
+# ... その他のSourceSage設定

@@ -2,11 +2,11 @@ aira:
   gaiah:  # 共通設定
     run: true
     repo:
-      repo_name: "AIRA-Sample02"
-      description: ""
+      repo_name: "PUMP"
+      description: "音声入力で筋トレ記録を簡単に管理し、グラフを生成するアシスタント。"
       private: false
     local:
-      repo_dir: "C:/Prj/AIRA-Sample/AIRA-Sample02"
+      repo_dir: "C:/Prj/PUMP"
       no_initial_commit: false
     commit:
       commit_msg_path: ".aira/aira.Gaiah.md"
@@ -37,12 +37,12 @@ aira:
   harmon_ai:
     run: true
     environment:
-      repo_name: "AIRA-Sample02"
+      repo_name: "PUMP"
       owner_name: "Sunwood-ai-labs"
-      package_name: "AIRA"
-      icon_url: "https://huggingface.co/datasets/MakiAi/IconAssets/resolve/main/AIRA_SAMPLE2.png"
-      title: "AIRA Sample02"
-      subtitle: "～AI-Integrated Repository for Accelerated Development～"
+      package_name: "PUMP"
+      icon_url: "https://huggingface.co/datasets/MakiAi/IconAssets/resolve/main/P.U.M.P.png"
+      title: "PUMP"
+      subtitle: "～ Personalized Utility for Muscle Progress ～"
       website_url: "https://hamaruki.com/"
       github_url: "https://github.com/Sunwood-ai-labs"
       twitter_url: "https://x.com/hAru_mAki_ch"
@@ -60,10 +60,10 @@ aira:
       sections_content_file: "sections_template_llm.md"
 
     development:
-      output_dir: "C:/Prj/AIRA-Sample/AIRA-Sample02/.harmon_ai"
+      output_dir: "C:/Prj/PUMP/.harmon_ai"
 
     main:
-      main_dir: "C:/Prj/AIRA-Sample/AIRA-Sample02/"
+      main_dir: "C:/Prj/PUMP/"
       replace_readme: true
 
-    instructions_prompt: .aira/instructions.md
+    instructions_prompt: .aira/instructions.PUMP.md

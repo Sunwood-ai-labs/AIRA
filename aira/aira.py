@@ -10,13 +10,23 @@ import pprint
 from litellm import completion
 import os
 
-from dotenv import load_dotenv
+# SourceSageのモジュールをインポート
+from sourcesage.core import SourceSage
+from sourcesage.modules.ReleaseDiffReportGenerator import GitDiffGenerator, MarkdownReportGenerator
+from sourcesage.modules.CommitCraft import CommitCraft
+from sourcesage.modules.DocuMind import DocuMind
+from sourcesage.modules.IssueWize import IssueWize
 
-load_dotenv(verbose=True)
+from dotenv import load_dotenv
+dotenv_path=os.path.join(os.getcwd(), '.env')
+logger.debug(f"dotenv_path : {dotenv_path}")
+load_dotenv(dotenv_path=dotenv_path, verbose=True, override=True)
+
 
 class Aira:
-    def __init__(self, config_path=".aira/config.yml"):
+    def __init__(self, args, config_path=".aira/config.yml"):
         logger.debug(f"aira config_path : {config_path}")
+        self.args = args
         self.aira_config = load_config(config_path)
         self.gaiah_config = {"gaiah" : self.aira_config["aira"]["gaiah"]}
         
@@ -136,3 +146,64 @@ class Aira:
         except Exception as e:
             logger.error(f"Error generating README: {e}")
             return None
+
+    def run_sourcesage(self):
+        """SourceSageの各モジュールを実行する"""
+        args = self.args 
+
+        # -----------------------------------------------
+        # SourceSageの実行
+        if 'all' in args.ss_mode or 'Sage' in args.ss_mode:
+            logger.info("SourceSageを起動します...")
+            sourcesage = SourceSage(args.config, args.ss_output, args.repo, args.owner, args.repository, 
+                                    args.ignore_file, args.language_map, args.changelog_start_tag, 
+                                    args.changelog_end_tag)
+            sourcesage.run()
+
+        # -----------------------------------------------  
+        # IssueWizeを使用してIssueを作成
+        if 'all' in args.ss_mode or 'IssueWize' in args.ss_mode:
+            issuewize = IssueWize(model=args.issuewize_model)
+            if args.issue_summary and args.project_name and args.repo_overview_file:
+                logger.info("IssueWizeを使用してIssueを作成します...")
+                issuewize.create_optimized_issue(args.issue_summary, args.project_name, 
+                                                args.milestone_name, args.repo_overview_file)
+            else:
+                logger.warning("IssueWizeの実行に必要なパラメータが不足しています。")
+
+        # -----------------------------------------------
+        # レポートの生成
+        if 'all' in args.ss_mode or 'GenerateReport' in args.ss_mode:
+            logger.info("git diff レポートの生成を開始します...")
+            git_diff_generator = GitDiffGenerator(args.repo_path, args.git_fetch_tags, args.git_tag_sort, args.git_diff_command)
+            diff, latest_tag, previous_tag = git_diff_generator.get_git_diff()
+
+            if diff is not None:
+                report_file_name = args.report_file_name.format(latest_tag=latest_tag)
+                os.makedirs(args.ss_output_path, exist_ok=True)
+                output_path = os.path.join(args.ss_output_path, report_file_name)
+
+                markdown_report_generator = MarkdownReportGenerator(diff, latest_tag, previous_tag, 
+                                                                    args.report_title, args.report_sections, 
+                                                                    output_path)
+                markdown_report_generator.generate_markdown_report()
+
+        # -----------------------------------------------
+        # CommitCraftを使用してLLMにステージ情報を送信し、コミットメッセージを生成
+        if 'all' in args.ss_mode or 'CommitCraft' in args.ss_mode:
+            stage_info_file = args.stage_info_file
+            llm_output_file = os.path.join(args.commit_craft_output, args.llm_output)
+            os.makedirs(args.commit_craft_output, exist_ok=True)
+            commit_craft = CommitCraft(args.ss_model_name, stage_info_file, llm_output_file)
+            commit_craft.generate_commit_messages()
+        
+        # -----------------------------------------------
+        # DocuMindを使用してリリースノートを生成
+        if 'all' in args.ss_mode or 'DocuMind' in args.ss_mode:
+            docuMind = DocuMind(args.docuMind_model, args.docuMind_db, args.docuMind_release_report, 
+                                args.docuMind_changelog, args.repo_name, args.repo_version, 
+                                args.docuMind_prompt_output)
+            release_notes = docuMind.generate_release_notes()
+            docuMind.save_release_notes(args.docuMind_output, release_notes)
+
+        logger.success("SourceSageプロセスが完了しました。")

@@ -37,4 +37,18 @@ aira.egg-info
 aira.Gaiah.md
 README_template.md
 
+.SourceSageAssets
+issue_creator.log
 .aira
+
+app.py
+style.css
+utils.py
+.cache
+converted_comment.html
+modified_README.html
+modified_README.md
+
+generated_prompts
+temp.patch
+applied_patches
