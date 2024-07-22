@@ -106,7 +106,7 @@ AIRAは、オープンソースプロジェクトです。
 バグ報告や機能リクエストがある場合は、[Issueページ](https://github.com/Sunwood-ai-labs/AIRA/issues)からお願いします。   
 また、プルリクエストも大歓迎です。 
 
-コントリビューションガイドラインについては、[CONTRIBUTING.md](https://github.com/Sunwood-ai-labs/AIRA/blob/main/CONTRIBUTING.md)を参照してください。
+コントリビューションガイドラインについては、[CONTRIBUTING.md](CONTRIBUTING.md)を参照してください。
 
 ## 開発者用
 
