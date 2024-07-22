@@ -120,7 +120,7 @@ sourcesage --mode DocuMind --docuMind-model "gemini/gemini-1.5-pro-latest" --doc
 ## 📄 ライセンス
 
 AIRAは、[MITライセンス](https://opensource.org/licenses/MIT)の下で公開されています。   
-詳細は、[LICENSE](https://github.com/Sunwood-ai-labs/AIRA/blob/main/LICENSE)ファイルを参照してください。
+詳細は、[LICENSE](LICENSE)ファイルを参照してください。
 
 ## 🙏 謝辞
 
