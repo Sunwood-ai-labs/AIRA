@@ -96,7 +96,7 @@ aira --mode commit
 3. ファイルのステージング
 4. コミットの実行
 
-より詳しい使い方は、[公式ドキュメント](https://github.com/Sunwood-ai-labs/AIRA/blob/main/docs/usage.md)を参照してください。
+より詳しい使い方は、[公式ドキュメント](docs/usage.md)を参照してください。
 
 ## 🤝 コントリビューション
 
@@ -106,7 +106,7 @@ AIRAは、オープンソースプロジェクトです。
 バグ報告や機能リクエストがある場合は、[Issueページ](https://github.com/Sunwood-ai-labs/AIRA/issues)からお願いします。   
 また、プルリクエストも大歓迎です。 
 
-コントリビューションガイドラインについては、[CONTRIBUTING.md](https://github.com/Sunwood-ai-labs/AIRA/blob/main/CONTRIBUTING.md)を参照してください。
+コントリビューションガイドラインについては、[CONTRIBUTING.md](CONTRIBUTING.md)を参照してください。
 
 ## 開発者用
 
@@ -120,7 +120,7 @@ sourcesage --mode DocuMind --docuMind-model "gemini/gemini-1.5-pro-latest" --doc
 ## 📄 ライセンス
 
 AIRAは、[MITライセンス](https://opensource.org/licenses/MIT)の下で公開されています。   
-詳細は、[LICENSE](https://github.com/Sunwood-ai-labs/AIRA/blob/main/LICENSE)ファイルを参照してください。
+詳細は、[LICENSE](LICENSE)ファイルを参照してください。
 
 ## 🙏 謝辞
 
