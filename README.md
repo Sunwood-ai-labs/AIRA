@@ -96,7 +96,7 @@ aira --mode commit
 3. ファイルのステージング
 4. コミットの実行
 
-より詳しい使い方は、[公式ドキュメント](https://github.com/Sunwood-ai-labs/AIRA/blob/main/docs/usage.md)を参照してください。
+より詳しい使い方は、[公式ドキュメント](docs/usage.md)を参照してください。
 
 ## 🤝 コントリビューション
 
