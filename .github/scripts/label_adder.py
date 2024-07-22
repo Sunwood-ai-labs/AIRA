@@ -57,7 +57,7 @@ def main():
     github_service.add_labels(issue, validated_labels)
 
     logger.info("イシューにコメントを追加しています...")
-    comment = f"I.R.I.S Bot🤖が以下のラベルを提案し、適用しました：\n\n" + "\n".join([f"- {label}" for label in validated_labels])
+    comment = f"@iris-s-coon が以下のラベルを提案し、適用しました：\n\n" + "\n".join([f"- {label}" for label in validated_labels])
     if skipped_labels:
         comment += f"\n\n以下のラベルは未登録のためスキップされました：\n\n" + "\n".join([f"- {label}" for label in skipped_labels])
     github_service.add_comment(issue, comment)
