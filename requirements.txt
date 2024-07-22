@@ -1,0 +1,5 @@
+litellm
+PyGithub
+google-generativeai
+loguru
+pydantic-settings
