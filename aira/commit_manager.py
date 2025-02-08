@@ -88,18 +88,43 @@ class CommitManager:
         self.unstage_files()
         tqdm_sleep(5)
 
-        for i in range(0, len(branch_sections), 2):
-            file_branch_name = branch_sections[i].strip()
-            branch_content = branch_sections[i + 1]
+        original_branch = run_command(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=self.repo_dir).strip()
+        
+        try:
+            for i in range(0, len(branch_sections), 2):
+                file_branch_name = branch_sections[i].strip()
+                branch_content = branch_sections[i + 1]
 
-            commits = re.split(self.FILENAME_REGEX, branch_content)
-            if commits and not commits[0].strip():
-                commits = commits[1:]
+                current_branch = branch_name or file_branch_name
+                commits = re.split(self.FILENAME_REGEX, branch_content)
+                if commits and not commits[0].strip():
+                    commits = commits[1:]
 
-            for j in range(0, len(commits), 2):
-                filename = commits[j].strip()
-                commit_message_section = commits[j + 1]
-                self.process_commit_section(filename, commit_message_section, branch_name or file_branch_name)
+                try:
+                    for j in range(0, len(commits), 2):
+                        filename = commits[j].strip()
+                        commit_message_section = commits[j + 1]
+                        self.process_commit_section(filename, commit_message_section, current_branch)
+                    
+                    # 各ブランチでの作業が完了したらdevelopにマージ
+                    if current_branch != "develop":
+                        self.merge_to_develop(current_branch)
+                
+                except Exception as e:
+                    logger.error(f"Error processing branch {current_branch}: {e}")
+                    # エラーが発生してもdevelopへのマージを試行
+                    if current_branch != "develop":
+                        try:
+                            self.merge_to_develop(current_branch)
+                        except Exception as merge_error:
+                            logger.error(f"Failed to merge after error: {merge_error}")
+        
+        finally:
+            # 必ず元のブランチに戻る
+            try:
+                run_command(["git", "checkout", original_branch], cwd=self.repo_dir)
+            except Exception as checkout_error:
+                logger.error(f"Failed to return to original branch: {checkout_error}")
 
     def process_commit_section(self, filename, commit_message_section, branch_name):
         """
@@ -142,4 +167,31 @@ class CommitManager:
 
         except Exception as e:
             logger.error(f"Error while processing file: {filename} - {e}")
+            raise
+
+    def merge_to_develop(self, source_branch):
+        """
+        指定されたブランチをdevelopブランチにマージする
+        """
+        try:
+            current_branch = run_command(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=self.repo_dir).strip()
+            
+            # developブランチに切り替え
+            run_command(["git", "checkout", "develop"], cwd=self.repo_dir)
+            
+            # マージを試行
+            try:
+                run_command(["git", "merge", "--no-ff", source_branch], cwd=self.repo_dir)
+                logger.success(f"Successfully merged {source_branch} into develop")
+            except Exception as merge_error:
+                logger.error(f"Merge conflict occurred: {merge_error}")
+                # マージを中止
+                run_command(["git", "merge", "--abort"], cwd=self.repo_dir)
+                raise
+            finally:
+                # 元のブランチに戻る
+                run_command(["git", "checkout", current_branch], cwd=self.repo_dir)
+                
+        except Exception as e:
+            logger.error(f"Error during merge to develop: {e}")
             raise
