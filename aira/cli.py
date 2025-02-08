@@ -1,18 +1,12 @@
 import argparse
 from art import tprint
 from loguru import logger
-from gaiah.gaiah import Gaiah
-from gaiah.cli import load_config
-
-from harmon_ai.harmon_ai import HarmonAI
-from sourcesage.cli import add_arguments as sourcesage_add_arguments
-import sourcesage
-
 import sys
 import os
 import shutil
-import yaml
+from dotenv import load_dotenv
 from .aira import Aira
+from sourcesage.cli import add_arguments as sourcesage_add_arguments
 
 logger.configure(
     handlers=[
@@ -25,38 +19,30 @@ logger.configure(
 )
 
 def parse_arguments():
-    """
-    コマンドライン引数を解析する
-    """
-    parser = argparse.ArgumentParser(description='AIRA - AI-Integrated Repository for Accelerated Development')
-    parser.add_argument('--config', default='.aira/config.dev.yml', help='設定ファイルのパス')
-    parser.add_argument('--mode', nargs='+', default=['commit'], help='処理モード（複数指定可）')
+    """コマンドライン引数を解析する"""
+    load_dotenv()
+    default_model = os.getenv('LLM_MODEL', 'gemini/gemini-1.5-pro-latest')
+    parser = argparse.ArgumentParser(description='AIRA - Automated Source Code Analysis Tool')
+    parser.add_argument('--mode', nargs='+', default=['commit'], 
+                      help='処理モード（commit: 自動コミット, sourcesage: SourceSage実行）')
+    parser.add_argument('--model', default=default_model, help='使用するLLMモデル名')
     sourcesage_add_arguments(parser)
     return parser.parse_args()
 
 def main():
+    """メイン処理"""
     tprint("!  Welcome  to  AIRA  !")
-
     args = parse_arguments()
-    aira = Aira(args=args, config_path=args.config)
+    aira = Aira(args=args)
 
     for mode in args.mode:
-        if mode == "make":
-            logger.info("mode is << make >>")
-            aira.make_repo()
-            aira.run()
-            aira.co_and_merge_branches()
-        
-        elif mode == "commit":
+        if mode == "commit":
             logger.info("mode is << commit >>")
-            aira.run()
-
+            aira.commit_manager.process_commits()
         elif mode == "sourcesage":
             logger.info("mode is << sourcesage >>")
-            aira.run_sourcesage()  # Airaクラスのrun_sourcesageメソッドを実行
-        
+            aira.run_sourcesage()
         else:
             logger.warning(f"Unknown mode: {mode}")
-
 if __name__ == "__main__":
     main()

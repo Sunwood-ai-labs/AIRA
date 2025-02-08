@@ -1,5 +1,0 @@
-aira:
-  gaiah:
-    commit:
-      process_commits: true
-      commit_msg_path: ".aira/aira.Gaiah.md"
