@@ -171,7 +171,7 @@ class CommitManager:
 
     def merge_to_develop(self, source_branch):
         """
-        指定されたブランチをdevelopブランチにマージする
+        指定されたブランチをdevelopブランチにマージし、マージ後にブランチを削除する
         """
         try:
             current_branch = run_command(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=self.repo_dir).strip()
@@ -183,14 +183,23 @@ class CommitManager:
             try:
                 run_command(["git", "merge", "--no-ff", source_branch], cwd=self.repo_dir)
                 logger.success(f"Successfully merged {source_branch} into develop")
+                
+                # マージが成功したらソースブランチを削除
+                if source_branch != "main":  # mainブランチは削除しない
+                    run_command(["git", "branch", "-d", source_branch], cwd=self.repo_dir)
+                    logger.success(f"Deleted branch: {source_branch}")
+                
             except Exception as merge_error:
                 logger.error(f"Merge conflict occurred: {merge_error}")
                 # マージを中止
                 run_command(["git", "merge", "--abort"], cwd=self.repo_dir)
                 raise
             finally:
-                # 元のブランチに戻る
-                run_command(["git", "checkout", current_branch], cwd=self.repo_dir)
+                # 元のブランチに戻る（削除されていない場合のみ）
+                if current_branch != source_branch or source_branch == "main":
+                    run_command(["git", "checkout", current_branch], cwd=self.repo_dir)
+                else:
+                    run_command(["git", "checkout", "develop"], cwd=self.repo_dir)
                 
         except Exception as e:
             logger.error(f"Error during merge to develop: {e}")
