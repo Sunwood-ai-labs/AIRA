@@ -121,24 +121,6 @@ aira --mode sourcesage commit --ss-model-name="gemini/gemini-1.5-flash-002"
   - 高品質なコミットメッセージを生成
   - カスタムモデルの指定が可能（--ss-model-name）
 
-### リポジトリの作成
-
-`.aira\config.sample.yml`に必要な項目を記載。
-
-以下のコマンドを実行すると、新しいリポジトリを作成することができます。
-
-```bash
-aira --mode=make --config=.aira\config.sample.yml
-```
-
-このコマンドを実行すると、以下の処理が行われます。
-
-1. Githubリポジトリの作成（設定ファイルで指定）
-2. ローカルリポジトリの初期化（設定ファイルで指定）  
-3. READMEの自動生成（設定ファイルで指定）
-
-より詳しい使い方は、[公式ドキュメント](docs/usage.md)を参照してください。
-
 ## 🤝 コントリビューション
 
 AIRAは、オープンソースプロジェクトです。   
