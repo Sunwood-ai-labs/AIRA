@@ -64,8 +64,64 @@ AIRAは、以下の手順でインストールすることができます。
 
 ## 📝 使い方
 
-### リポジトリの作成
+### 環境設定
 
+`.env`ファイルを作成し、必要な設定を記述します。
+`.env.example`をコピーして使用することができます。
+
+```bash
+cp .env.example .env
+```
+
+主な設定項目：
+```plaintext
+# AIRAの基本設定
+GAIAH_RUN=true
+COMMIT_MSG_PATH=.Gaiah.md
+
+# LLMの設定
+LLM_MODEL=gemini/gemini-1.5-pro-latest
+GEMINI_API_KEY=your-api-key-here
+
+# GitHubの設定（必要な場合のみ）
+GITHUB_ACCESS_TOKEN=your-github-token-here
+```
+
+### コミットメッセージの自動生成
+
+AIRAには2つのコミット生成モードがあります：
+
+1. 基本的なコミットモード：
+```bash
+aira --mode commit
+```
+
+2. SourceSageを使用した高度なコミットモード：
+```bash
+aira --mode sourcesage commit --ss-model-name="gemini/gemini-1.5-flash-002"
+```
+
+このコマンドを実行すると、以下の処理が行われます：
+
+1. 変更内容の取得と解析
+2. AIによるコミットメッセージの自動生成
+3. ファイルのステージング
+4. コミットの実行
+
+#### コミットモードの違い
+
+- **基本モード（--mode commit）**
+  - シンプルな変更に適しています
+  - 高速な処理が可能
+  - 基本的なコミットメッセージを生成
+
+- **SourceSageモード（--mode sourcesage commit）**
+  - 複雑な変更に適しています
+  - より詳細なコード解析を実行
+  - 高品質なコミットメッセージを生成
+  - カスタムモデルの指定が可能（--ss-model-name）
+
+### リポジトリの作成
 
 `.aira\config.sample.yml`に必要な項目を記載。
 
@@ -80,21 +136,6 @@ aira --mode=make --config=.aira\config.sample.yml
 1. Githubリポジトリの作成（設定ファイルで指定）
 2. ローカルリポジトリの初期化（設定ファイルで指定）  
 3. READMEの自動生成（設定ファイルで指定）
-
-### コミットメッセージの自動生成
-
-以下のコマンドを実行すると、変更内容からコミットメッセージを自動生成します。
-
-```bash
-aira --mode commit
-```
-
-このコマンドを実行すると、以下の処理が行われます。
-
-1. 変更内容の取得
-2. コミットメッセージの自動生成
-3. ファイルのステージング
-4. コミットの実行
 
 より詳しい使い方は、[公式ドキュメント](docs/usage.md)を参照してください。
 
@@ -115,7 +156,6 @@ AIRAは、オープンソースプロジェクトです。
 ```shell
 sourcesage --mode DocuMind --docuMind-model "gemini/gemini-1.5-pro-latest" --docuMind-db ".SourceSageAssets\DOCUMIND\Repository_summary.md" --docuMind-release-report ".SourceSageAssets\RELEASE_REPORT\Report_v0.2.2.md"  --docuMind-changelog ".SourceSageAssets\Changelog\CHANGELOG_release_0.2.2.md"  --docuMind-output ".SourceSageAssets/DOCUMIND/RELEASE_NOTES_v0.2.2.md"  --docuMind-prompt-output ".SourceSageAssets/DOCUMIND/_PROMPT_v0.2.2.md"  --repo-name "SourceSage" --repo-version "v0.2.2"
 ```
-
 
 ## 📄 ライセンス
 
